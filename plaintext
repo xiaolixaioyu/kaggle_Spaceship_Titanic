@@ -1,0 +1,14 @@
+spaceship-titanic/   # 你的项目根目录（本地Git仓库）
+├── data/            # 存放数据集
+│   ├── train.csv
+│   ├── test.csv
+│   └── sample_submission.csv
+├── src/             # 核心源码包
+│   ├── __init__.py
+│   ├── config.py    # 配置文件（路径、特征、参数）
+│   ├── preprocess.py # 数据预处理+特征工程（全核心特征，无无用列）
+│   ├── model.py     # 模型训练+交叉验证
+│   └── predict.py    # 预测+生成提交文件
+├── main.py          # 项目入口（一键运行）
+├── .gitignore       # Git忽略文件（必选）
+└── README.md        # 项目说明（可选）

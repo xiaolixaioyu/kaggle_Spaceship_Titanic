@@ -1,19 +1,31 @@
-# ====================== 主程序入口 ======================
-# 导入自定义模块
-from data_loader import load_raw_data, merge_train_test
-from features import build_all_features
+# -*- coding: utf-8 -*-
+"""
+项目主入口
+运行命令：python main.py
+"""
+from src.config import TRAIN_PATH, TEST_PATH, SUBMIT_PATH
+from src.preprocess import load_and_merge_data, process_features, split_train_test
+from src.model import train_cross_validation
+from src.predict import generate_submission
 
-# ====================== 执行流程 ======================
 if __name__ == '__main__':
-    # 1. 加载原始数据
-    train, test, sub = load_raw_data()
+    print("=" * 50)
+    print("🚀  Spaceship Titanic 预测任务启动")
+    print("=" * 50)
 
-    # 2. 合并训练+测试集
-    df = merge_train_test(train, test)
+    # 1. 加载数据
+    df, train_ids, test_ids = load_and_merge_data(TRAIN_PATH, TEST_PATH)
 
-    # 3. 执行全部特征工程
-    df = build_all_features(df)
+    # 2. 特征工程
+    df, drop_cols = process_features(df)
 
-    # ====================== 后续代码 ======================
-    # 这里可以继续写：模型训练、交叉验证、预测、提交文件生成
-    print("\n✅ 数据处理完成！")
+    # 3. 拆分数据集
+    X, y, X_test = split_train_test(df, drop_cols)
+
+    # 4. 训练模型
+    test_preds = train_cross_validation(X, y, X_test)
+
+    # 5. 生成提交
+    generate_submission(test_ids, test_preds)
+
+    print("\n✅  全部执行完成！")
