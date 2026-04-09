@@ -3,12 +3,12 @@
 项目主入口
 运行命令：python main.py
 """
-from src.config import TRAIN_PATH, TEST_PATH, SUBMIT_PATH
-from src.preprocess import load_and_merge_data, process_features, split_train_test
+from src.config import TRAIN_PATH, TEST_PATH
 from src.model import train_cross_validation
 from src.predict import generate_submission
+from src.preprocess import load_and_merge_data, process_features, split_train_test
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("=" * 50)
     print("🚀  Spaceship Titanic 预测任务启动")
     print("=" * 50)
